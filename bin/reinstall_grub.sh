@@ -7,7 +7,7 @@
 #This is the only part you need to change.
 #It can be found from blkid, or using the command below, inserting the appropriate mount point
 #df 2>/dev/null | grep [mountpoint] | awk '{print $1}' | xargs -I % blkid % | awk '{print $3}' | sed 's/.*\"\(.*\)\"/\1/'
-UUID="e0d16de8-0d19-4e9c-ac81-21821114fe05"
+UUID="22C63AE3C63AB6BF"
 
 function quit {
 	#if not run from inside terminal, prompt to exit
@@ -22,9 +22,14 @@ GRAND_PARENT_NAME=$(ps -ef | awk '{ print $2 " " $3 " " $8 }' | grep -P "^`ps -e
 echo $GRAND_PARENT_NAME
 
 CD=`dirname $0`
-cp -f $CD/grub.cfg $CD/boot/grub/grub.cfg
-cp -f $CD/grub-amd64.cfg $CD/boot/grub/grub-amd64.cfg
-cp -f $CD/grub-i386.cfg $CD/boot/grub/grub-i386.cfg
+
+mkdir $CD/../grub/
+
+cp -f $CD/../cfg/grub.cfg			$CD/../grub/grub.cfg
+cp -f $CD/../cfg/grub-amd64.cfg		$CD/../grub/grub-amd64.cfg
+cp -f $CD/../cfg/grub-i386.cfg		$CD/../grub/grub-i386.cfg
+
+sed -i "s/###ROOTUUID###/$UUID/" $CD/../grub/grub.cfg
 
 partition=`sudo blkid -U $UUID`
 dev=${partition%[[:digit:]]}

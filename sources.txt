@@ -1,0 +1,5 @@
+grub4dos (need ./grub.exe ./badgrub.exe ./grldr)
+https://code.google.com/p/grub4dos-chenall/downloads/list/
+
+memdisk (need file ./bios/memdisk/memdisk)
+https://www.kernel.org/pub/linux/utils/boot/syslinux/
